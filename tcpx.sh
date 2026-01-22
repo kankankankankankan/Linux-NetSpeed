@@ -464,18 +464,30 @@ check_cn() {
 
 #下载
 download_file() {
-	url="$1"
-	filename="$2"
+  local url="$1"
+  local filename="$2"
 
-	wget "$url" -O "$filename"
-	status=$?
+  # 解析最终跳转后的真实地址（通常会变成 release-assets）
+  local final_url
+  final_url=$(curl -sIL -o /dev/null -w "%{url_effective}" "$url")
 
-	if [ $status -eq 0 ]; then
-		echo -e "\e[32m文件下载成功或已经是最新。\e[0m"
-	else
-		echo -e "\e[31m文件下载失败，退出状态码: $status\e[0m"
-		exit 1
-	fi
+  # 若解析失败则回退用原始 url
+  if [ -z "$final_url" ]; then
+    final_url="$url"
+  fi
+
+  # 对最终地址也做大陆前缀加速选择
+  local dl_url
+  dl_url=$(check_cn "$final_url")
+
+  # 下载，增加重试与断点续传
+  wget -c --tries=5 --timeout=15 "$dl_url" -O "$filename"
+  local status=$?
+
+  if [ $status -ne 0 ]; then
+    echo "文件下载失败，退出状态码: $status"
+    exit 1
+  fi
 }
 
 #檢查賦值
