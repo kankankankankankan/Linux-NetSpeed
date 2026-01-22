@@ -1309,7 +1309,7 @@ gototcp() {
 #切换到秋水逸冰BBR安装脚本
 gototeddysun_bbr() {
 	clear
-	bash <(wget -qO- https://github.com/teddysun/across/raw/master/bbr.sh)
+	bash <(wget -qO- "$(check_cn 'https://github.com/ylx2016/Linux-NetSpeed/raw/master/tcp.sh')")
 }
 
 #切换到一键DD安装系统脚本 新手勿入
@@ -1317,14 +1317,14 @@ gotodd() {
 	clear
 	echo DD使用git.beta.gs的脚本，知悉
 	sleep 1.5
-	bash <(wget -qO- https://github.com/fcurrk/reinstall/raw/master/NewReinstall.sh)
+	bash <(wget -qO- "$(check_cn 'https://github.com/fcurrk/reinstall/raw/master/NewReinstall.sh')")
 }
 
 #切换到检查当前IP质量/媒体解锁/邮箱通信脚本
 gotoipcheck() {
 	clear
 	sleep 1.5
-	bash <(wget -qO- https://raw.githubusercontent.com/xykt/IPQuality/main/ip.sh)
+	bash <(wget -qO- "$(check_cn 'https://raw.githubusercontent.com/xykt/IPQuality/main/ip.sh')")
 	#bash <(wget -qO- https://IP.Check.Place)
 }
 
