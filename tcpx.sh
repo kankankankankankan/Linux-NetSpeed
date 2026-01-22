@@ -435,11 +435,8 @@ check_cn() {
 	country=$(echo "$response" | jq -r '.countryCode')
 	if [[ "$country" == "CN" ]]; then
 		local suffixes=(
-			"https://gh-proxy.com/"
-			"https://ghfast.top"
-			"https://down.npee.cn/?"
-			"https://hub.gitmirror.com/"
-			"https://gh.ddlc.top/"
+			"https://github.igeek.ing/" 
+			"https://github.palees.com/"
 		)
 
 		# 循环遍历每个后缀并测试组合的链接
